@@ -33,6 +33,7 @@ INSTALLED_APPS = [
 
     'shop.apps.ShopConfig',
     'users.apps.UsersConfig',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+# Session variables
+CART_SESSION_ID = 'cart'

@@ -44,7 +44,7 @@ class UserTest(APITestCase):
         url = reverse('users:user_list')
         res = self.client.get(url)
 
-        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_user_retrieve(self):
         """
