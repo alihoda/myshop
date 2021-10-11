@@ -39,7 +39,7 @@ class CartTest(APITestCase):
         cart.add(self.prod1)
         cart.add(self.prod2, 5)
 
-        url = reverse('cart:cart-detail')
+        url = reverse('cart:cart-items')
         res = self.client.get(url)
         data = json.loads(res.content.decode())
 

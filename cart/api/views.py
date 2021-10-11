@@ -15,7 +15,7 @@ class CartViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated, ]
 
     @action(detail=False, methods=['get'])
-    def detail(self, request):
+    def items(self, request):
         """
         Retrieve the cart.
         """
