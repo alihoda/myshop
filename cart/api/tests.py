@@ -39,7 +39,7 @@ class CartTest(APITestCase):
         cart.add(self.prod1)
         cart.add(self.prod2, 5)
 
-        url = reverse('cart:cart-items')
+        url = reverse('api:cart-items')
         res = self.client.get(url)
         data = json.loads(res.content.decode())
 
@@ -52,7 +52,7 @@ class CartTest(APITestCase):
         """
         self._token_authentication(self.client, self.user)
 
-        url = reverse('cart:cart-add', args=[self.prod1.id])
+        url = reverse('api:cart-add', args=[self.prod1.id])
         res = self.client.post(url, {'quantity': 4})
         cart = self.client.session.get(settings.CART_SESSION_ID)
 
@@ -68,7 +68,7 @@ class CartTest(APITestCase):
         cart = Cart(self.client.session)
         cart.add(self.prod1)
 
-        url = reverse('cart:cart-remove', args=[self.prod1.id])
+        url = reverse('api:cart-remove', args=[self.prod1.id])
         res = self.client.post(url)
         cart = self.client.session.get(settings.CART_SESSION_ID)
 
