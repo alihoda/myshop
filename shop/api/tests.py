@@ -36,7 +36,7 @@ class CategoryTests(APITestCase):
         """
         Check retrieving all categories
         """
-        url = reverse('shop:category_list')
+        url = reverse('api:category-list')
         res = self.client.get(url)
         self.assertEqual(len(res.data), Category.objects.count())
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -45,7 +45,7 @@ class CategoryTests(APITestCase):
         """
         Check creating category
         """
-        url = reverse('shop:category_list')
+        url = reverse('api:category-list')
         res = self.client.post(url, {'name': 'cat3'}, format='json')
         self.assertEqual(Category.objects.count(), 3)
         self.assertEqual(Category.objects.get(pk=3).name, 'cat3')
@@ -55,7 +55,7 @@ class CategoryTests(APITestCase):
         """
         Check retrieving an existence category with its products
         """
-        url = reverse('shop:category_detail', args=['cat1'])
+        url = reverse('api:category-detail', args=['cat1'])
         res = self.client.get(url)
         data = json.loads(res.content.decode())
 
@@ -68,7 +68,7 @@ class CategoryTests(APITestCase):
         """
         Check updating an existence category
         """
-        url = reverse('shop:category_detail', args=['cat1'])
+        url = reverse('api:category-detail', args=['cat1'])
         res = self.client.put(url, {'name': 'c1'}, format='json')
 
         self.assertEqual(Category.objects.get(slug='c1').name, 'c1')
@@ -78,7 +78,7 @@ class CategoryTests(APITestCase):
         """
         Check deleting an existence category
         """
-        url = reverse('shop:category_detail', args=['cat1'])
+        url = reverse('api:category-detail', args=['cat1'])
         res = self.client.delete(url)
 
         self.assertNotIn(

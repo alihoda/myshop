@@ -1,44 +1,24 @@
-from rest_framework import generics
+from rest_framework import viewsets
 
 from shop.models import Category, Product
-from shop.api import serializers
+from shop.api.serializers import ProductSerializer, CategoryProductSerializer
 
 
-class ProductList(generics.ListCreateAPIView):
+class ProductViewSet(viewsets.ModelViewSet):
     """
-    An endpoint to create or retrieve all available products
+    Endpoint list, retrieve, create, update, or destory product.
     """
-
-    serializer_class = serializers.ProductSerializer
-    queryset = Product.objects.filter(available=True)
-
-
-class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-    An endpoint to retrieve, update, or delete product object
-    """
-
-    serializer_class = serializers.ProductSerializer
     queryset = Product.objects.all()
+    serializer_class = ProductSerializer
     lookup_field = 'slug'
-    lookup_url_kwarg = 'product_slug'
+    lookup_url_kwarg = 'slug'
 
 
-class CategoryList(generics.ListCreateAPIView):
+class CategoryViewSet(viewsets.ModelViewSet):
     """
-    An endpoint to create or retrieve all categories
+    Endpoint list, retrieve, create, update, or destory category.
     """
-
-    serializer_class = serializers.CategorySerializer
     queryset = Category.objects.all()
-
-
-class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    """
-    An endpoint to retrieve, update, delete category object
-    """
-
-    serializer_class = serializers.CategoryProductSerializer
-    queryset = Category.objects.all()
+    serializer_class = CategoryProductSerializer
     lookup_field = 'slug'
-    lookup_url_kwarg = 'category_slug'
+    lookup_url_kwarg = 'slug'
