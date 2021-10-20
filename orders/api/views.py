@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from cart.cart import Cart
 from orders.api.serializers import OrderSerializer, OrderItemSerializer
 from orders.models import Order, OrderItem
+from orders.tasks import order_created
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -23,4 +24,5 @@ class OrderViewSet(viewsets.ModelViewSet):
                                      quantity=item['quantity'])
 
         cart.clear()
+        order_created.delay(order.id)
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
