@@ -1,3 +1,4 @@
+import braintree
 from pathlib import Path
 
 import environ
@@ -135,3 +136,16 @@ REST_FRAMEWORK = {
 
 # Session variables
 CART_SESSION_ID = 'cart'
+
+# Braintree Settings
+BRAINTREE_MERCANT_ID = env('BRAINTREE_MERCANT_ID')
+BRAINTREE_PUBLIC_KEY = env('BRAINTREE_PUBLIC_KEY')
+BRAINTREE_PRIVATE_TOKEN = env('BRAINTREE_PRIVATE_TOKEN')
+
+
+BRAINTREE_CONF = braintree.Configuration(
+    braintree.Environment.Sandbox,
+    BRAINTREE_MERCANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_TOKEN,
+)
