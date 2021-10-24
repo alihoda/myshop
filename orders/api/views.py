@@ -25,4 +25,5 @@ class OrderViewSet(viewsets.ModelViewSet):
 
         cart.clear()
         order_created.delay(order.id)
+        self.request.session['order_id'] = order.id
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)

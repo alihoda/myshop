@@ -14,6 +14,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
+    braintree_id = models.CharField(max_length=150, blank=True)
 
     class Meta:
         ordering = ('-created_at',)
