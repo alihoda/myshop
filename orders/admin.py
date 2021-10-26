@@ -3,8 +3,18 @@ from datetime import datetime
 
 from django.contrib import admin
 from django.http import HttpResponse
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 
 from orders.models import Order, OrderItem
+
+
+def order_detail(obj: Order):
+    """
+    Retrieve order's detail in administration site. 
+    """
+    url = reverse('orders:admin_order_detail', args=[obj.id])
+    return mark_safe(f'<a href="{url}">View</a>')
 
 
 def export_to_csv(modeladmin: admin.ModelAdmin, request, queryset) -> HttpResponse:
@@ -42,8 +52,15 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'first_name', 'last_name',
-                    'paid', 'city', 'created_at', 'updated_at']
+    list_display = ['id',
+                    'first_name',
+                    'last_name',
+                    'paid',
+                    'city',
+                    'created_at',
+                    'updated_at',
+                    order_detail
+                    ]
     list_filter = ['paid', 'created_at', 'updated_at']
     inlines = [OrderItemInline, ]
     actions = [export_to_csv, ]

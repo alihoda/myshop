@@ -7,6 +7,7 @@ from rest_framework.authtoken import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('orders.urls', namespace='orders')),
     path('users/', include('users.api.urls', namespace='users')),
     path('api/', include(('myshop.urls_api', 'api'), namespace='api')),
 ]
